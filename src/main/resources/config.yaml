@@ -1,0 +1,9 @@
+http:
+ port: "8081"
+ 
+web:
+ location: "http://www.dneonline.com/calculator.asmx?WSDL"
+ service: "Calculator"
+ port: "CalculatorSoap"
+ address: "http://www.dneonline.com/calculator.asmx"
+ jlt: "jlt"

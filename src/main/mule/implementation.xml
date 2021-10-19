@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd">
+	
+		
+    <wsc:config name="Web_Service_Consumer_Config" doc:name="Web Service Consumer Config" doc:id="239e7c2a-7cc0-4a5f-9549-65bda4e65acc" >
+		<wsc:connection wsdlLocation="${web.location}" service="${web.service}" port="${web.port}" address="${web.address}" />
+	</wsc:config>
+	
+	<flow name="implementationFlow" doc:id="32a5c302-eb34-4ce1-b5b2-fbcdc831154a" >
+		<set-variable value="#[attributes.uriParams.operation as String]" doc:name="Set operation" doc:id="9a78991e-3c81-496b-b58f-c1e0d7a6e238" variableName="operation"/>
+		<ee:transform doc:name="Transform Message" doc:id="6622adf1-fae6-4f43-ac78-e5a6904606ed" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+ns ns0 http://tempuri.org/
+---
+{
+	ns0#Add: {
+		ns0#intA: payload.int1,
+		ns0#intB: payload.int2
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<wsc:consume operation="Add" doc:name="Consume" doc:id="4add8431-5b7d-41f4-a427-bf8de7369cf4" config-ref="Web_Service_Consumer_Config"/>
+		<ee:transform doc:name="Transform Message" doc:id="2938adc4-c3bc-4dad-ad47-495ca72b87b8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+ns ns0 http://tempuri.org/
+---
+{
+	CalResult: {
+		operation: vars.operation,
+		Result: payload.body.ns0#AddResponse.ns0#AddResult as String default ""
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
