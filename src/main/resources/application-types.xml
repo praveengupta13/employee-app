@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="calcbody" format="json">
+      <types:shape format="weave" example="examples/Calcbody.json"><![CDATA[%dw 2.0
+
+type calcbody = {|
+  int1: Number {"typeId": "int"}, 
+  int2: Number {"typeId": "int"}
+|} {"example": "{\\\"int1\\\":100,\\\"int2\\\":200}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="calcaddoutput" format="xml">
+      <types:example format="xml" element="CalResult" location="examples/CalcAddOutput-1.xml"/>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#6622adf1-fae6-4f43-ac78-e5a6904606ed">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="calcbody"/>
+          <types:attributes type="calcbody"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#2938adc4-c3bc-4dad-ad47-495ca72b87b8">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="calcaddoutput"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
