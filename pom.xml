@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mycompany</groupId>
-	<artifactId>calculator-app</artifactId>
+	<artifactId>employee-app</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
-	<name>calculator-app</name>
+	<name>employee-app</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,23 +29,23 @@
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
-				<configuration>
-                  <cloudHubDeployment>
-                    <muleVersion>4.3.0</muleVersion>
-			        <username>naishagupta1607</username>
-			        <password>Mulesoft@2021</password>
-			        <applicationName>Calculator-service</applicationName>
-			        <environment>Sandbox</environment>   
-			        <workers>1</workers>
-			        <workerType>MICRO</workerType>
-			        <objectStoreV2>true</objectStoreV2>
-			        <deploymentTimeout>2100000</deploymentTimeout>
-			        <properties>
-			          <anypoint.platform.client_id>5a0b3cf0273642bfa56ca16fa5a99f36</anypoint.platform.client_id>
-                      <anypoint.platform.client_secret>0EfE786945dc41399D36ea4BFCa7a256</anypoint.platform.client_secret>
-			        </properties>
-                  </cloudHubDeployment>
-               </configuration>
+				<configuration>	
+					<cloudHubDeployment>
+	                    <muleVersion>4.3.0</muleVersion>
+				        <username>naishagupta1607</username>
+				        <password>Mulesoft@2021</password>
+				        <applicationName>empployee-app</applicationName>
+				        <environment>Sandbox</environment>   
+				        <workers>1</workers>
+				        <workerType>MICRO</workerType>
+				        <objectStoreV2>true</objectStoreV2>
+				        <deploymentTimeout>1000000</deploymentTimeout>
+				        <properties>
+				          <anypoint.platform.client_id>5a0b3cf0273642bfa56ca16fa5a99f36</anypoint.platform.client_id>
+	                      <anypoint.platform.client_secret>0EfE786945dc41399D36ea4BFCa7a256</anypoint.platform.client_secret>
+				        </properties>
+	                </cloudHubDeployment>
+			</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -65,7 +65,7 @@
 		</dependency>
 		<dependency>
 			<groupId>32b929c5-f2c3-47f4-b0bc-8063a104bfc9</groupId>
-			<artifactId>calculator-sub-app</artifactId>
+			<artifactId>employee-app</artifactId>
 			<version>1.0.0</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
@@ -74,12 +74,6 @@
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-apikit-module</artifactId>
 			<version>1.5.2</version>
-			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.connectors</groupId>
-			<artifactId>mule-wsc-connector</artifactId>
-			<version>1.6.4</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
